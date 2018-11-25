@@ -1,0 +1,14 @@
+#!/bin/bash
+# creates 100 fasta files with 1 sequence taken from a reference fastq file at random, reference fasta file has 80000 lines, not sequences
+for num in {1..100}; do 
+  while TRUE; do 
+    number=$RANDOM; 
+    if test $number -gt  80000; then 
+      continue;
+     fi; 
+    if test $((number % 4)) -eq 2; then 
+      echo -e ">seq_${number}\n$(sed -n "${number}p" TestDataSet_R1.fastq)" > testseq${num}.fasta;
+      break ;
+    fi;
+done ;
+done
