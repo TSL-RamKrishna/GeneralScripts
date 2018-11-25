@@ -1,0 +1,15 @@
+#!/bin/bash
+# creates 100 fastq files, sequences are selected randomly from input file
+inputfastq=$1
+totallines=$(($(wc -l $inputfastq | awk '{print $1}') -3 ))
+for num in {1..100}; do  
+  while TRUE; do  
+    number=$RANDOM;  
+    if test $number -gt $totallines ; then continue; fi; 
+    if test $((number % 4)) -eq 1; then 
+      end=$((number+3)); 
+      echo -e "$(sed -n "${number},${end}p" $inputfastq)" > sample_${num}.fastq; 
+      break ; 
+    fi; 
+  done ; 
+done
