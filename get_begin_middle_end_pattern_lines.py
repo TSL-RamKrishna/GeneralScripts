@@ -38,7 +38,7 @@ import sys, re
 # For the following commands:
 # python this_script.py input.txt BEGIN aweful END
 # python this_script.py input.txt BE.*IN aweful END
-# python this_script.py input.txt BE.*IN awe.* EN[ABCD]
+# python this_script.py input.txt BE.*IN aweful EN[ABCD]
 # It should print
 #
 # ***** BEGIN *****
