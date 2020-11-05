@@ -20,17 +20,16 @@ function copy_and_validate(){
         targetmd5=$(md5sum  $1 | awk '{print $1}')
         targetbasename=$(basename $1)
 
-        echo Getting md5sum of destination file
-        targetmd5=$(md5sum  $1 | awk '{print $1}')
-
         if [ -d $2 ]; then
                 if [ -e $2/${targetbasename} ]; then
                         echo "File already exist, checking MD5"
                         destmd5=$(md5sum $2/${targetbasename} | awk '{print $1}')
                         if [[ "${targetmd5}" == "${destmd5}" ]]; then echo "File was copied successfully"; else echo "File copy failed. Destination file is removed"; rm $2/${targetbasename}; fi
                 else
+                        echo Copying the file
                         cp $1 $2
                         echo "File copied, Checking MD5"
+                        destmd5=$(md5sum $2/${targetbasename} | awk '{print $1}')
                         if [[ "${targetmd5}" == "${destmd5}" ]]; then echo "Copied successfully"; else echo "File copy failed. Destination file is removed"; rm $2/${targetbasename}; fi
                 fi
 
